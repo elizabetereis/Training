@@ -1,4 +1,4 @@
-/** @file signal_generatoe.cpp
+/** @file signal_generator.cpp
  *  @brief Main function for setting and connecting components.
  *  This file contains the main function that connecting generator
  *  and converter components. Both spinners and state machines are
@@ -42,14 +42,14 @@ main ()
       "}"
    "}";
 
-   std::string connectConf =
+   std::string connect_configuration =
    "{" 
       "signals: {"
          "endpoint: '/generator/signals'" 
       "}" 
   "}"; 
 
-   auto remote_endpoint = ConnectionConfiguration(connectConf);   
+   auto remote_endpoint = ConnectionConfiguration(connect_configuration);   
    
    StateMachine generator_sm(std::make_shared<signal_generator::SignalGeneratorComponent>("/generator"_uri));
    generator_sm.init(
@@ -72,7 +72,7 @@ main ()
    StateMachineSpinner generator_spinner(generator_sm, cancellation_token);
    StateMachineSpinner converter_spinner(converter_sm, cancellation_token);
 
-   float amplitude = 100.0;
+   float amplitude = 5.0;
    float frequency = 2.0;
    bool cosine = false;
 
@@ -80,8 +80,12 @@ main ()
    dynamic_property_access.set<float>("frequency", frequency);
    dynamic_property_access.set<bool>("cosine", cosine);
 
-   widgets::registerChannelListener<hyro::Signal>("/converter/digital_signals", "api", [](hyro::Signal signal){
-    widgets::plot2d<float>("Digital Signal", "/converter/digital_signals/value", signal.value);
+   widgets::registerChannelListener<hyro::Signal>("/generator/signals", "api", [](hyro::Signal signal){
+    widgets::plot2d<float>("Analog Signal", "/generator/signals", signal.value);
+  });
+
+     widgets::registerChannelListener<hyro::Signal>("/converter/digital_signals", "api", [](hyro::Signal signal){
+    widgets::plot2d<float>("Digital Signal", "/converter/digital_signals", signal.value);
   });
    
    widgets::exec();

@@ -12,10 +12,13 @@ SignalGeneratorComponent::SignalGeneratorComponent(const hyro::URI & uri)
 {
   m_amplitude = 5.0;
   m_frequency = 3.0;
-  m_cosine = true;
+  m_cosine = false;
   std::string m_name = "Signal";
 };
 
+/** @brief Initialize all input and output channels, register dynamic properties 
+ *  @return Result.
+ */
 hyro::Result
 SignalGeneratorComponent::init (const hyro::ComponentConfiguration & config)
 {
@@ -23,12 +26,6 @@ SignalGeneratorComponent::init (const hyro::ComponentConfiguration & config)
   m_dummy = this->registerOutput<std::vector<int>>("fix_dynamic"_uri, config); 
   
   m_outputsignal = this->registerOutput<Signal>("signals"_uri, config);
-
-  auto onSendEvent = [](const IIdentifiable * sender, const SendEvent & event)
-  {
-    auto result = (event.result == SendEvent::SEND_OK ? "Message sent" : "Error: " + event.error_message);
-    s_logger->info(sender, "-> [{}] {}", event.input_uri, result);
-  };
 
   registerDynamicProperty<float>(
     "amplitude",
@@ -74,6 +71,11 @@ SignalGeneratorComponent::start ()
   return hyro::Result::RESULT_OK;
 }
 
+/** @brief Uses SignalGenerator class to create a signal based on 
+ *  cosine, amplitude and frequency values. Writes the generated signal 
+ *  in the output channel. 
+ *  @return Result.
+ */
 hyro::Result
 SignalGeneratorComponent::update()
 {

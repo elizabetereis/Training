@@ -1,3 +1,12 @@
+/** @file test_signal_generatoe.cpp
+ *  @brief Main function for define and running test cases.
+ *  This file contains three test cases: SignalGeneratorComponentCheck, 
+ *  DigitalConverterCheck and DynamicPropertyCheck for generator component.
+ *  @author Elizabete
+ *  @bug Don't execute the three tests in the same execution, for example, 
+ *  when execute generator check and converter check, the dynamic check don't execute.
+ */
+
 #include <hyro/DigitalConverterComponent.hpp>
 #include <hyro/SignalGeneratorComponent.hpp>
 #include <hyro/core/StateMachine.h>
