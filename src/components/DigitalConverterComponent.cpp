@@ -1,4 +1,4 @@
-#include <hyro/DigitalConverterComponent.hpp>
+#include <hyro/DigitalConverterComponent.h>
 
 using namespace hyro;
 
@@ -10,17 +10,15 @@ std::shared_ptr<hyro::HyroLogger> DigitalConverterComponent::s_logger = hyro::Hy
 DigitalConverterComponent::DigitalConverterComponent (const hyro::URI & uri)
   : hyro::Component(uri)
 {
-  m_amplitude = 5.0;
-  m_threshold = 6.0;
 
 };
 
-/** @brief Initialize all input and output channels 
- *  @return Result.
- */
 hyro::Result
 DigitalConverterComponent::init (const hyro::ComponentConfiguration & config)
 {
+  m_amplitude = config.parameters.getParameter<float>("amplitude", 5.0);
+  m_threshold = config.parameters.getParameter<float>("amplitude", 6.0);
+  
   m_signals = this->registerInput<Signal>("signals"_uri, config);
 
   m_digital_signals = this->registerOutput<Signal>("digital_signals"_uri, config);
@@ -44,11 +42,6 @@ DigitalConverterComponent::check ()
   return Result::RESULT_OK;
 }
 
-/** @brief Tests if some input signal was received, and 
- *	use thresholding class to convert the signal input value
- *  in digital value.
- *  @return Result.
- */
 hyro::Result
 DigitalConverterComponent::update()
 { 
@@ -62,7 +55,7 @@ DigitalConverterComponent::update()
   {
     input_signal = *value;
     response_signal.frame_id = "Answer";
-    response_signal.timestamp = 2;
+    response_signal.timestamp = TimeUtils::Now_TimeSinceEpoch();;
     response_signal.value = thresholding.convertSignal(input_signal.value, m_amplitude, m_threshold);;
   
     m_digital_signals->sendAsync(response_signal);

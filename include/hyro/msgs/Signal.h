@@ -11,15 +11,16 @@
 
 #include <signal_generator_components_export.h>
 #include <string>
+#include <hyro/common/Time.h>
 
 namespace hyro
 {
 
 struct SIGNAL_GENERATOR_COMPONENTS_EXPORT Signal
 {
-    int timestamp;
-    std::string frame_id;
-    float value;
+	Time timestamp;
+	std::string frame_id;
+	float value;
 };
 
 }

@@ -1,4 +1,4 @@
-#include "SignalGenerator.hpp"
+#include "SignalGenerator.h"
 
 namespace signal_generator
 {
@@ -7,12 +7,6 @@ SignalGenerator::SignalGenerator(){
 
 }
 
-/** @brief generates analog signal 
- *  @param cosine: boolean indicating if the signal value will be sin ou cosine function 
- *         amp: amplitude value
- *				 step: frequency.
- *  @return float.
- */
 float
 SignalGenerator::getSignalValue(bool cosine, float amp, float step)
 {

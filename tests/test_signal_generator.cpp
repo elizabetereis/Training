@@ -7,8 +7,8 @@
  *  when execute generator check and converter check, the dynamic check don't execute.
  */
 
-#include <hyro/DigitalConverterComponent.hpp>
-#include <hyro/SignalGeneratorComponent.hpp>
+#include <hyro/DigitalConverterComponent.h>
+#include <hyro/SignalGeneratorComponent.h>
 #include <hyro/core/StateMachine.h>
 #include <hyro/utils/DynamicPropertyAccess.h>
 #include <hyro/test/ComponentTester.h>

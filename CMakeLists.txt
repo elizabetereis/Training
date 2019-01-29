@@ -5,10 +5,10 @@ hyro_find_package(hyro_msgs REQUIRED)
 hyro_find_package(hyro_widgets REQUIRED)
 
 set(SIGNAL_HEADERS
-  include/hyro/DigitalConverterComponent.hpp
-  include/hyro/SignalGeneratorComponent.hpp
-  src/internal/SignalGenerator.hpp
-  src/internal/Thresholding.hpp
+  include/hyro/DigitalConverterComponent.h
+  include/hyro/SignalGeneratorComponent.h
+  src/internal/SignalGenerator.h
+  src/internal/Thresholding.h
   include/hyro/msgs/Signal.h
   include/hyro/msgs/Signal.proto.h
 )

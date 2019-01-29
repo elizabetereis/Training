@@ -13,8 +13,8 @@
 #include <hyro/utils/components/GenericSenderComponent.h>
 #include <hyro/utils/components/GenericConsumerComponent.h>
 #include <hyro/utils/components/PrintComponent.h>
-#include <hyro/DigitalConverterComponent.hpp>
-#include <hyro/SignalGeneratorComponent.hpp>
+#include <hyro/DigitalConverterComponent.h>
+#include <hyro/SignalGeneratorComponent.h>
 #include <hyro/widgets/WidgetCollection.h>
 #include <hyro/msgs/Signal.h>
 

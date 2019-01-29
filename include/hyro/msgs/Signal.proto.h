@@ -19,7 +19,7 @@ struct ProtobufTraits<Signal> : public ProtobufTraitsDefault<Signal, msgs::Signa
   FromMessage (const msgs::Signal & msg,
                Signal * value)
   {
-    value->timestamp = msg.timestamp();
+    value->timestamp = hyro::Time{msg.timestamp()};
     value->frame_id = msg.frame_id();
     value->value = msg.value();
   }
@@ -28,13 +28,13 @@ struct ProtobufTraits<Signal> : public ProtobufTraitsDefault<Signal, msgs::Signa
   ToMessage (const Signal & value,
              msgs::Signal * msg)
   {
-    msg->set_timestamp(value.timestamp);
+    msg->set_timestamp(value.timestamp.count());
     msg->set_frame_id(value.frame_id);
     msg->set_value(value.value);
   }
 
 };
 
-} // namespace signal_generator
+} // namespace hyro
 
 #endif //SIGNAL_GENERATOR_MSG_SIGNAL_PROTO_H 

@@ -1,4 +1,4 @@
-#include <hyro/SignalGeneratorComponent.hpp>
+#include <hyro/SignalGeneratorComponent.h>
 
 using namespace hyro;
 
@@ -10,18 +10,17 @@ std::shared_ptr<hyro::HyroLogger> SignalGeneratorComponent::s_logger = hyro::Hyr
 SignalGeneratorComponent::SignalGeneratorComponent(const hyro::URI & uri) 
   : hyro::Component(uri)
 {
-  m_amplitude = 5.0;
-  m_frequency = 3.0;
-  m_cosine = false;
-  std::string m_name = "Signal";
+  
 };
 
-/** @brief Initialize all input and output channels, register dynamic properties 
- *  @return Result.
- */
 hyro::Result
 SignalGeneratorComponent::init (const hyro::ComponentConfiguration & config)
 {
+  m_amplitude = config.parameters.getParameter<float>("amplitude", 5.0);
+  m_frequency = config.parameters.getParameter<float>("frequency", 7.0);
+  m_cosine = config.parameters.getParameter<bool>("cosine", false);
+  m_name = config.parameters.getParameter<bool>("name", "Signal");
+
   //To solve dynamic properties bug
   m_dummy = this->registerOutput<std::vector<int>>("fix_dynamic"_uri, config); 
   
@@ -71,11 +70,6 @@ SignalGeneratorComponent::start ()
   return hyro::Result::RESULT_OK;
 }
 
-/** @brief Uses SignalGenerator class to create a signal based on 
- *  cosine, amplitude and frequency values. Writes the generated signal 
- *  in the output channel. 
- *  @return Result.
- */
 hyro::Result
 SignalGeneratorComponent::update()
 {
@@ -83,7 +77,7 @@ SignalGeneratorComponent::update()
   SignalGenerator signalGen;
 
   signal.frame_id = "Testing";
-  signal.timestamp = 1;
+  signal.timestamp = TimeUtils::Now_TimeSinceEpoch();;
   signal.value = signalGen.getSignalValue(m_cosine, m_amplitude, m_frequency);
  
   m_outputsignal->sendAsync(signal);
