@@ -1,13 +1,11 @@
 /** @file SignalGenerator.h
- *  @brief Function prototypes for the signal generator.
+ *  @brief This file contains function prototypes for the signal generator class.
  *  @author Elizabete
  *  @bug No known bugs.
  */
 
 #ifndef SIGNALGENERATOR_H
 #define SIGNALGENERATOR_H
-
-#define PI 3.14159265
 
 #include <math.h>
 
@@ -26,6 +24,9 @@ public:
  *  @return float.
  */
 	float getSignalValue(bool cosine, float amp, float step);
+
+private:
+	float m_deg;
 };
 
 }

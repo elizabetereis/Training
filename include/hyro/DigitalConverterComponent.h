@@ -1,5 +1,5 @@
 /** @file DigitalConverterComponent.h
- *  @brief Function prototypes for the digital converter component.
+ *  @brief This file contains function prototypes for the digital converter component class.
  *  @author Elizabete
  *  @bug No known bugs.
  */
@@ -17,29 +17,45 @@
 namespace signal_generator
 {
 
-class SIGNAL_GENERATOR_COMPONENTS_EXPORT DigitalConverterComponent : public hyro::Component{
+class SIGNAL_GENERATOR_COMPONENTS_EXPORT DigitalConverterComponent : public hyro::Component
+{
 	
 public:
-	DigitalConverterComponent(const hyro::URI & uri);
+
+	using hyro::Component::Component;
 		
 	virtual
 	~DigitalConverterComponent () override = default;
 
-/** @brief Initialize all input and output channels 
- 	* @return Result.
-	*/
+	/** @brief Initialize all input and output channels 
+ 		* @return Result.
+		*/
 	virtual hyro::Result
 	init (const hyro::ComponentConfiguration & config) override;
 
+/** @brief reset all channels inputs and outputs. 
+	* @return Result.
+	*/
 	virtual hyro::Result
 	reset () override;
 
+/** @brief check if connection is up for channels inputs. 
+	* @return Result.
+	*/
 	virtual hyro::Result
 	check () override;
 
+/** @brief start the component. 
+	* @return Result.
+	*/
 	virtual hyro::Result
 	start () override;
 
+/** @brief check if some message was received. 
+	* In case of true, use SignalGenerator class to generate 
+	* a signal output and return as response. 
+	* @return Result.
+	*/
 	virtual hyro::Result
 	update () override;
 

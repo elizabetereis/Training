@@ -7,19 +7,13 @@ namespace signal_generator
 
 std::shared_ptr<hyro::HyroLogger> SignalGeneratorComponent::s_logger = hyro::HyroLoggerManager::CreateLogger("SignalGeneratorComponent");
 
-SignalGeneratorComponent::SignalGeneratorComponent(const hyro::URI & uri) 
-  : hyro::Component(uri)
-{
-  
-};
-
 hyro::Result
 SignalGeneratorComponent::init (const hyro::ComponentConfiguration & config)
 {
-  m_amplitude = config.parameters.getParameter<float>("amplitude", 5.0);
+  m_amplitude = config.parameters.getParameter<float>("amplitude", 0.0);
   m_frequency = config.parameters.getParameter<float>("frequency", 7.0);
   m_cosine = config.parameters.getParameter<bool>("cosine", false);
-  m_name = config.parameters.getParameter<bool>("name", "Signal");
+  m_name = config.parameters.getParameter<std::string>("name", "Signal");
 
   //To solve dynamic properties bug
   m_dummy = this->registerOutput<std::vector<int>>("fix_dynamic"_uri, config); 
@@ -74,12 +68,11 @@ hyro::Result
 SignalGeneratorComponent::update()
 {
   Signal signal;
-  SignalGenerator signalGen;
 
   signal.frame_id = "Testing";
-  signal.timestamp = TimeUtils::Now_TimeSinceEpoch();;
+  signal.timestamp = TimeUtils::Now_TimeSinceEpoch();
   signal.value = signalGen.getSignalValue(m_cosine, m_amplitude, m_frequency);
- 
+
   m_outputsignal->sendAsync(signal);
 
   return Result::RESULT_OK;

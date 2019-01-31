@@ -10,10 +10,7 @@ Thresholding::Thresholding(){
 float
 Thresholding::convertSignal(float value, float amp, float thresh){
 
-	if(value > thresh)
-		return amp;
-	  
-	return - amp;
+	return (value > thresh) ? amp : -amp;
 }
 
 }

@@ -3,7 +3,6 @@
 #ifndef SIGNAL_GENERATOR_MSG_SIGNAL_PROTO_H
 #define SIGNAL_GENERATOR_MSG_SIGNAL_PROTO_H
 
-// This is important, otherwise you'll get compilation errors!
 #include <signal_generator_components_export.h>
 #include <hyro/msgs/Signal.h>
 #include <hyro/dynamic/ProtobufTraits.h>

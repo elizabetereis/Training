@@ -2,7 +2,7 @@
  *  @brief Struct description for signal message.
  *  @author Elizabete
  *  @bug No known bugs.
- */
+*/
 
 #pragma once
 
@@ -16,12 +16,12 @@
 namespace hyro
 {
 
-struct SIGNAL_GENERATOR_COMPONENTS_EXPORT Signal
-{
-	Time timestamp;
-	std::string frame_id;
-	float value;
-};
+	struct SIGNAL_GENERATOR_COMPONENTS_EXPORT Signal
+	{
+		Time timestamp;
+		std::string frame_id;
+		float value;
+	};
 
 }
 
